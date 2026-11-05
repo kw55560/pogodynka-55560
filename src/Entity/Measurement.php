@@ -19,10 +19,16 @@ class Measurement
     private ?Location $location = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $date = null;
+    private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 0)]
-    private ?string $celsius = null;
+    #[ORM\Column]
+    private ?float $celsius = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $humidity = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $windSpeed = null;
 
     public function getId(): ?int
     {
@@ -36,31 +42,55 @@ class Measurement
 
     public function setLocation(?Location $location): static
     {
-        $this->location = $location;
+        $this->location =$location;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTime
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTime $date): static
+    public function setDate(?\DateTimeInterface $date): static
     {
-        $this->date = $date;
+        $this->date =$date;
 
         return $this;
     }
 
-    public function getCelsius(): ?string
+    public function getCelsius(): ?float
     {
         return $this->celsius;
     }
 
-    public function setCelsius(string $celsius): static
+    public function setCelsius(float $celsius): static
     {
-        $this->celsius = $celsius;
+        $this->celsius =$celsius;
+
+        return $this;
+    }
+
+    public function getHumidity(): ?int
+    {
+        return $this->humidity;
+    }
+
+    public function setHumidity(?int $humidity): static
+    {
+        $this->humidity =$humidity;
+
+        return $this;
+    }
+
+    public function getWindSpeed(): ?float
+    {
+        return $this->windSpeed;
+    }
+
+    public function setWindSpeed(?float $windSpeed): static
+    {
+        $this->windSpeed =$windSpeed;
 
         return $this;
     }

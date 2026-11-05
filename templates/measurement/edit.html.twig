@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edycja pomiaru pogody{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="card-title h5 mb-0">Edycja pomiaru pogody #{{ measurement.id }}</h3>
+                </div>
+                <div class="card-body">
+                    {{ include('measurement/_form.html.twig', {'button_label': 'Zapisz zmiany'}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

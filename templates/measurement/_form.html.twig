@@ -1,0 +1,7 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+<div class="mt-3">
+    <button class="btn btn-success">{{ button_label|default('Zapisz') }}</button>
+    <a href="{{ path('app_measurement_index') }}" class="btn btn-secondary">Powrót do listy</a>
+</div>
+{{ form_end(form) }}

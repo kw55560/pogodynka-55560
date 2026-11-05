@@ -1,0 +1,64 @@
+App\Entity\Location:
+    properties:
+        city:
+            - NotBlank:
+                  groups: [create, edit, Default]
+                  message: 'Nazwa miasta jest wymagana.'
+            - Length:
+                  min: 2
+                  max: 255
+                  groups: [create, edit, Default]
+        country:
+            - NotBlank:
+                  groups: [create, edit, Default]
+            - Length:
+                  min: 2
+                  max: 2
+                  exactMessage: 'Kod kraju musi składać się z 2 liter (np. PL).'
+                  groups: [create, edit, Default]
+        latitude:
+            - NotBlank:
+                  groups: [create, Default]
+                  message: 'Szerokość geograficzna jest wymagana przy tworzeniu.'
+            - Range:
+                  min: -90
+                  max: 90
+                  groups: [create, edit, Default]
+        longitude:
+            - NotBlank:
+                  groups: [create, Default]
+                  message: 'Długość geograficzna jest wymagana przy tworzeniu.'
+            - Range:
+                  min: -180
+                  max: 180
+                  groups: [create, edit, Default]
+
+App\Entity\Measurement:
+    properties:
+        location:
+            - NotBlank:
+                  groups: [create, Default]
+                  message: 'Wybór lokalizacji jest obowiązkowy podczas tworzenia pomiaru.'
+        date:
+            - NotBlank:
+                  groups: [create, edit, Default]
+                  message: 'Data pomiaru jest wymagana.'
+        celsius:
+            - NotBlank:
+                  groups: [create, edit, Default]
+                  message: 'Temperatura jest wymagana.'
+            - Range:
+                  min: -60
+                  max: 60
+                  groups: [create, edit, Default]
+                  notInRangeMessage: 'Temperatura musi mieścić się w przedziale od {{ min }} do {{ max }} °C.'
+        humidity:
+            - Range:
+                  min: 0
+                  max: 100
+                  groups: [create, edit, Default]
+                  notInRangeMessage: 'Wilgotność musi zawierać się w przedziale 0-100%.'
+        windSpeed:
+            - PositiveOrZero:
+                  groups: [create, edit, Default]
+                  message: 'Prędkość wiatru nie może być ujemna.'
