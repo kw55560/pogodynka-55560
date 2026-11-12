@@ -5,7 +5,9 @@
 {% block body %}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Prognozy pogody (Pomiary)</h1>
-        <a href="{{ path('app_measurement_new') }}" class="btn btn-primary">Dodaj nowy pomiar</a>
+        {% if is_granted('ROLE_MEASUREMENT_NEW') %}
+            <a href="{{ path('app_measurement_new') }}" class="btn btn-primary">Dodaj nowy pomiar</a>
+        {% endif %}
     </div>
 
     <div class="table-responsive">
@@ -32,11 +34,15 @@
                     <td>{{ measurement.windSpeed is not null ? measurement.windSpeed ~ ' m/s' : '-' }}</td>
                     <td>
                         <div class="d-flex gap-2">
-                            <a href="{{ path('app_measurement_edit', {'id': measurement.id}) }}" class="btn btn-sm btn-outline-primary">Edytuj</a>
-                            <form method="post" action="{{ path('app_measurement_delete', {'id': measurement.id}) }}" onsubmit="return confirm('Czy na pewno chcesz usunąć ten rekord?');">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ measurement.id) }}">
-                                <button class="btn btn-sm btn-outline-danger">Usuń</button>
-                            </form>
+                            {% if is_granted('ROLE_MEASUREMENT_EDIT') %}
+                                <a href="{{ path('app_measurement_edit', {'id': measurement.id}) }}" class="btn btn-sm btn-outline-primary">Edytuj</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_MEASUREMENT_DELETE') %}
+                                <form method="post" action="{{ path('app_measurement_delete', {'id': measurement.id}) }}" onsubmit="return confirm('Czy na pewno chcesz usunąć ten rekord?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ measurement.id) }}">
+                                    <button class="btn btn-sm btn-outline-danger">Usuń</button>
+                                </form>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
