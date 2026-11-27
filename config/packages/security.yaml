@@ -24,6 +24,8 @@ security:
                 check_path: app_login
             logout:
                 path: app_logout
+            login_throttling:
+                max_attempts: 2
 
     # Note: Only the *first* matching rule is applied
     access_control:
